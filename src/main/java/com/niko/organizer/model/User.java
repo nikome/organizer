@@ -1,10 +1,14 @@
 package com.niko.organizer.model;
 
 import com.niko.organizer.model.audit.DateAudit;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,11 +17,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
+@AllArgsConstructor
 public class User extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +45,11 @@ public class User extends DateAudit {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             orphanRemoval = true)
-    private List<Book> books = new ArrayList<>();
+    private List<Book> books;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 }
