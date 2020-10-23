@@ -3,6 +3,8 @@ package com.niko.organizer.controller;
 
 import com.niko.organizer.model.payload.UserSummary;
 import com.niko.organizer.response.BaseResponse;
+import com.niko.organizer.security.CurrentUser;
+import com.niko.organizer.security.UserPrincipal;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    @GetMapping("/testapi")
+    public ResponseEntity<BaseResponse<UserSummary>> testApi(){
+        return new ResponseEntity<>(BaseResponse.success(null), HttpStatus.OK);
+    }
 
     @GetMapping("/me")
-    public ResponseEntity<BaseResponse<UserSummary>> getCurrentUser(){
-        return new ResponseEntity<>(BaseResponse.success(null), HttpStatus.OK);
+    public ResponseEntity<BaseResponse<UserSummary>> getCurrentUser(@CurrentUser UserPrincipal currentUser){
+        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getEmail(), currentUser.getName());
+        return new ResponseEntity<>(BaseResponse.success(userSummary), HttpStatus.OK);
     }
 }
