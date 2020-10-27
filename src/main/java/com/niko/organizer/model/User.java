@@ -18,6 +18,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -62,5 +63,9 @@ public class User extends DateAudit {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public String getRolesList() {
+        return Arrays.toString(roles.toArray());
     }
 }
