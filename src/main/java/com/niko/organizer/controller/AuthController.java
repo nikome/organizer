@@ -49,11 +49,6 @@ public class AuthController {
         if(userRepository.existsByEmail(user.getEmail())) {
             return new ResponseEntity<>(BaseResponse.error(ResponseCode.USER_ACCOUNT_EXISTS), HttpStatus.UNAUTHORIZED);
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role userRole =roleRepository.findByName(RoleName.ROLE_USER)
-                .orElseThrow(() -> new AppException("User Role not set."));
-
-        user.setRoles(Collections.singleton(userRole));
 
         final Optional<RegisterResponse> newUserResponse = Optional.ofNullable(authenticationService.registerUser(signUpRequest));
         if(newUserResponse.isPresent()){

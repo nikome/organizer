@@ -42,8 +42,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public RegisterResponse registerUser(final SignUpRequest signUpRequest) {
-
-        System.out.println("hello: " + signUpRequest);
         final User user = new User(signUpRequest.getName(), signUpRequest.getEmail(), signUpRequest.getPassword());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));

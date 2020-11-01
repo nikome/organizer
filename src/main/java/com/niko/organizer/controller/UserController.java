@@ -2,6 +2,7 @@ package com.niko.organizer.controller;
 
 
 import com.niko.organizer.model.payload.UserSummary;
+import com.niko.organizer.repository.UserRepository;
 import com.niko.organizer.response.BaseResponse;
 import com.niko.organizer.security.CurrentUser;
 import com.niko.organizer.security.UserPrincipal;
@@ -19,6 +20,7 @@ public class UserController {
 
     @GetMapping("/testapi")
     public ResponseEntity<BaseResponse<UserSummary>> testApi(){
+
         return new ResponseEntity<>(BaseResponse.success(null), HttpStatus.OK);
     }
 

@@ -5,4 +5,8 @@ VALUES
 (3, 'ROLE_USER'),
 (4, 'USER_ROLE')
 
-DELETE FROM public.roles WHERE id > 0
+
+
+SELECT * from roles
+
+DELETE FROM roles WHERE id > 0
