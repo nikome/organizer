@@ -56,6 +56,12 @@ public class User extends DateAudit {
             orphanRemoval = true)
     private List<Book> books;
 
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true)
+    private List<Folder> folders;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
